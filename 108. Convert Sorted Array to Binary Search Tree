@@ -1,0 +1,27 @@
+//108. Convert Sorted Array to Binary Search Tree
+
+class Solution {
+private:
+    TreeNode* convertBST(int left, int right, vector<int>& arr)
+    {
+        if(left > right)
+        {
+            return nullptr;
+        }
+        // calculate the value of mid
+        
+        int mid = left + ((right - left) / 2);
+        // creating new tree and put mid value at root node
+        TreeNode* root = new TreeNode(arr[mid]);
+        root -> left = convertBST(left, mid - 1, arr);
+        root -> right = convertBST(mid + 1, right, arr);
+        // at the end we are returning the root(means whole tree)
+        return root;
+    }
+public:
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        // fetching size of the array nums
+        int size = nums.size() - 1;
+        return convertBST(0, size, nums);
+    }
+};
